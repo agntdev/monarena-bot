@@ -1,19 +1,72 @@
 [
   {
-    "name": "Manage Team",
+    "name": "Manage Team asks for login first",
     "steps": [
       {
+        "send": { "callback": "team:manage" },
         "expect": [
           {
             "method": "sendMessage",
             "payload": {
-              "text": "Edit party composition, moves, and items"
+              "text": "Tap /start to begin your adventure first."
             }
           }
-        ],
-        "send": {
-          "callback": "team:manage"
-        }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Manage Team shows party after onboarding",
+    "steps": [
+      {
+        "send": { "text": "/start" },
+        "expect": [
+          {
+            "method": "sendMessage",
+            "payload": {
+              "text": "👋 Welcome, new Trainer! First, pick your starter Pokémon:"
+            }
+          }
+        ]
+      },
+      {
+        "send": { "callback": "starter:charmander" },
+        "expect": [
+          {
+            "method": "answerCallbackQuery"
+          },
+          {
+            "method": "sendMessage",
+            "payload": {
+              "text": "Great choice! Charmander will be your partner.\n\nNow, what's your trainer name?"
+            }
+          }
+        ]
+      },
+      {
+        "send": { "text": "Red" },
+        "expect": [
+          {
+            "method": "sendMessage",
+            "payload": {
+              "text": "🎉 Welcome, Red!\n\nCharmander is now in your party. Here's what you got:\n• potion\n• potion\n• pokeball\n• pokeball\n• pokeball\n\nTap a button below to begin your adventure!"
+            }
+          }
+        ]
+      },
+      {
+        "send": { "callback": "team:manage" },
+        "expect": [
+          {
+            "method": "answerCallbackQuery"
+          },
+          {
+            "method": "sendMessage",
+            "payload": {
+              "text": "👥 Red's team:\n• Charmander (Lv.5 fire) — HP 18/18"
+            }
+          }
+        ]
       }
     ]
   }

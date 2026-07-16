@@ -1,19 +1,66 @@
 [
   {
-    "name": "View Pokédex",
+    "name": "View Pokédex shows paginated species list",
     "steps": [
       {
+        "send": { "callback": "pokedex:view" },
         "expect": [
+          {
+            "method": "editMessageText",
+            "payload": {
+              "text": "📖 Pokédex — page 1/4\nTap a Pokémon to see details."
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Pokédex pagination goes to next page",
+    "steps": [
+      {
+        "send": { "callback": "pokedex:view" },
+        "expect": [
+          {
+            "method": "editMessageText",
+            "payload": {
+              "text": "📖 Pokédex — page 1/4\nTap a Pokémon to see details."
+            }
+          }
+        ]
+      },
+      {
+        "send": { "callback": "pokedex:page:1" },
+        "expect": [
+          {
+            "method": "answerCallbackQuery"
+          },
+          {
+            "method": "editMessageText",
+            "payload": {
+              "text": "📖 Pokédex — page 2/4\nTap a Pokémon to see details."
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Pokédex detail view shows species info",
+    "steps": [
+      {
+        "send": { "callback": "pokedex:detail:charmander" },
+        "expect": [
+          {
+            "method": "answerCallbackQuery"
+          },
           {
             "method": "sendMessage",
             "payload": {
-              "text": "Browse available Pokémon species and details"
+              "text": "📖 Charmander (#4)\nType: fire\nHP: 39  ATK: 52  DEF: 43  SPD: 65\nMoves: ember, scratch, flamethrower, quick_attack"
             }
           }
-        ],
-        "send": {
-          "callback": "pokedex:view"
-        }
+        ]
       }
     ]
   }

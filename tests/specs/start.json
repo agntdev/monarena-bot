@@ -1,13 +1,122 @@
 [
   {
-    "name": "/start replies with the welcome + main menu",
+    "name": "/start onboarding flow: pick starter and enter name",
     "steps": [
       {
         "send": { "text": "/start" },
         "expect": [
           {
             "method": "sendMessage",
-            "payload": { "text": "👋 Welcome! Tap a button below to get started." }
+            "payload": {
+              "text": "👋 Welcome, new Trainer! First, pick your starter Pokémon:"
+            }
+          }
+        ]
+      },
+      {
+        "send": { "callback": "starter:charmander" },
+        "expect": [
+          {
+            "method": "answerCallbackQuery"
+          },
+          {
+            "method": "sendMessage",
+            "payload": {
+              "text": "Great choice! Charmander will be your partner.\n\nNow, what's your trainer name?"
+            }
+          }
+        ]
+      },
+      {
+        "send": { "text": "Ash" },
+        "expect": [
+          {
+            "method": "sendMessage",
+            "payload": {
+              "text": "🎉 Welcome, Ash!\n\nCharmander is now in your party. Here's what you got:\n• potion\n• potion\n• pokeball\n• pokeball\n• pokeball\n\nTap a button below to begin your adventure!"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "/start with invalid trainer name retries",
+    "steps": [
+      {
+        "send": { "text": "/start" },
+        "expect": [
+          {
+            "method": "sendMessage",
+            "payload": {
+              "text": "👋 Welcome, new Trainer! First, pick your starter Pokémon:"
+            }
+          }
+        ]
+      },
+      {
+        "send": { "callback": "starter:bulbasaur" },
+        "expect": [
+          {
+            "method": "answerCallbackQuery"
+          },
+          {
+            "method": "sendMessage",
+            "payload": {
+              "text": "Great choice! Bulbasaur will be your partner.\n\nNow, what's your trainer name?"
+            }
+          }
+        ]
+      },
+      {
+        "send": { "text": "A" },
+        "expect": [
+          {
+            "method": "sendMessage",
+            "payload": {
+              "text": "Name should be 2–20 characters. Try again:"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "/start with all three starters",
+    "steps": [
+      {
+        "send": { "text": "/start" },
+        "expect": [
+          {
+            "method": "sendMessage",
+            "payload": {
+              "text": "👋 Welcome, new Trainer! First, pick your starter Pokémon:"
+            }
+          }
+        ]
+      },
+      {
+        "send": { "callback": "starter:squirtle" },
+        "expect": [
+          {
+            "method": "answerCallbackQuery"
+          },
+          {
+            "method": "sendMessage",
+            "payload": {
+              "text": "Great choice! Squirtle will be your partner.\n\nNow, what's your trainer name?"
+            }
+          }
+        ]
+      },
+      {
+        "send": { "text": "Misty" },
+        "expect": [
+          {
+            "method": "sendMessage",
+            "payload": {
+              "text": "🎉 Welcome, Misty!\n\nSquirtle is now in your party. Here's what you got:\n• potion\n• potion\n• pokeball\n• pokeball\n• pokeball\n\nTap a button below to begin your adventure!"
+            }
           }
         ]
       }

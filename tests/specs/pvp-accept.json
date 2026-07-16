@@ -1,19 +1,72 @@
 [
   {
-    "name": "Accept Duel",
+    "name": "Accept Duel asks for login first",
     "steps": [
       {
+        "send": { "callback": "pvp:accept" },
         "expect": [
           {
             "method": "sendMessage",
             "payload": {
-              "text": "Respond to pending challenge invitation"
+              "text": "You need Pokémon in your party! Tap 👥 Team first."
             }
           }
-        ],
-        "send": {
-          "callback": "pvp:accept"
-        }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Accept Duel shows no trainers when alone",
+    "steps": [
+      {
+        "send": { "text": "/start" },
+        "expect": [
+          {
+            "method": "sendMessage",
+            "payload": {
+              "text": "👋 Welcome, new Trainer! First, pick your starter Pokémon:"
+            }
+          }
+        ]
+      },
+      {
+        "send": { "callback": "starter:squirtle" },
+        "expect": [
+          {
+            "method": "answerCallbackQuery"
+          },
+          {
+            "method": "sendMessage",
+            "payload": {
+              "text": "Great choice! Squirtle will be your partner.\n\nNow, what's your trainer name?"
+            }
+          }
+        ]
+      },
+      {
+        "send": { "text": "Misty" },
+        "expect": [
+          {
+            "method": "sendMessage",
+            "payload": {
+              "text": "🎉 Welcome, Misty!\n\nSquirtle is now in your party. Here's what you got:\n• potion\n• potion\n• pokeball\n• pokeball\n• pokeball\n\nTap a button below to begin your adventure!"
+            }
+          }
+        ]
+      },
+      {
+        "send": { "callback": "pvp:accept" },
+        "expect": [
+          {
+            "method": "answerCallbackQuery"
+          },
+          {
+            "method": "sendMessage",
+            "payload": {
+              "text": "No other trainers to battle right now. Try again later!"
+            }
+          }
+        ]
       }
     ]
   }

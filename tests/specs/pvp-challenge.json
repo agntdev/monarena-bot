@@ -1,19 +1,72 @@
 [
   {
-    "name": "Issue Duel",
+    "name": "Issue Duel asks for login first",
     "steps": [
       {
+        "send": { "callback": "pvp:challenge" },
         "expect": [
           {
             "method": "sendMessage",
             "payload": {
-              "text": "Send asynchronous challenge to another player"
+              "text": "You need Pokémon in your party! Tap 👥 Team first."
             }
           }
-        ],
-        "send": {
-          "callback": "pvp:challenge"
-        }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Issue Duel shows no trainers when alone",
+    "steps": [
+      {
+        "send": { "text": "/start" },
+        "expect": [
+          {
+            "method": "sendMessage",
+            "payload": {
+              "text": "👋 Welcome, new Trainer! First, pick your starter Pokémon:"
+            }
+          }
+        ]
+      },
+      {
+        "send": { "callback": "starter:pikachu" },
+        "expect": [
+          {
+            "method": "answerCallbackQuery"
+          },
+          {
+            "method": "sendMessage",
+            "payload": {
+              "text": "Great choice! Pikachu will be your partner.\n\nNow, what's your trainer name?"
+            }
+          }
+        ]
+      },
+      {
+        "send": { "text": "Ash" },
+        "expect": [
+          {
+            "method": "sendMessage",
+            "payload": {
+              "text": "🎉 Welcome, Ash!\n\nPikachu is now in your party. Here's what you got:\n• potion\n• potion\n• pokeball\n• pokeball\n• pokeball\n\nTap a button below to begin your adventure!"
+            }
+          }
+        ]
+      },
+      {
+        "send": { "callback": "pvp:challenge" },
+        "expect": [
+          {
+            "method": "answerCallbackQuery"
+          },
+          {
+            "method": "sendMessage",
+            "payload": {
+              "text": "No other trainers available right now. Try again later!"
+            }
+          }
+        ]
       }
     ]
   }

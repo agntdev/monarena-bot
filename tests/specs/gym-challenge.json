@@ -1,19 +1,72 @@
 [
   {
-    "name": "Challenge Gym",
+    "name": "Challenge Gym asks for login first",
     "steps": [
       {
+        "send": { "callback": "gym:challenge" },
         "expect": [
           {
             "method": "sendMessage",
             "payload": {
-              "text": "Select and challenge a PvE gym"
+              "text": "Tap /start to begin your adventure first."
             }
           }
-        ],
-        "send": {
-          "callback": "gym:challenge"
-        }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Challenge Gym shows gym list after onboarding",
+    "steps": [
+      {
+        "send": { "text": "/start" },
+        "expect": [
+          {
+            "method": "sendMessage",
+            "payload": {
+              "text": "👋 Welcome, new Trainer! First, pick your starter Pokémon:"
+            }
+          }
+        ]
+      },
+      {
+        "send": { "callback": "starter:charmander" },
+        "expect": [
+          {
+            "method": "answerCallbackQuery"
+          },
+          {
+            "method": "sendMessage",
+            "payload": {
+              "text": "Great choice! Charmander will be your partner.\n\nNow, what's your trainer name?"
+            }
+          }
+        ]
+      },
+      {
+        "send": { "text": "Red" },
+        "expect": [
+          {
+            "method": "sendMessage",
+            "payload": {
+              "text": "🎉 Welcome, Red!\n\nCharmander is now in your party. Here's what you got:\n• potion\n• potion\n• pokeball\n• pokeball\n• pokeball\n\nTap a button below to begin your adventure!"
+            }
+          }
+        ]
+      },
+      {
+        "send": { "callback": "gym:challenge" },
+        "expect": [
+          {
+            "method": "answerCallbackQuery"
+          },
+          {
+            "method": "sendMessage",
+            "payload": {
+              "text": "⚔️ Which gym do you want to challenge?"
+            }
+          }
+        ]
       }
     ]
   }

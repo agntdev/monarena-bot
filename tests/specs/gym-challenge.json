@@ -1,19 +1,15 @@
 [
   {
-    "name": "Challenge Gym",
+    "name": "Challenge Gym requires trainer profile",
     "steps": [
       {
+        "send": { "callback": "gym:challenge" },
         "expect": [
           {
-            "method": "sendMessage",
-            "payload": {
-              "text": "Select and challenge a PvE gym"
-            }
+            "method": "editMessageText",
+            "payload": { "text": "You need a trainer profile first! Tap /start." }
           }
-        ],
-        "send": {
-          "callback": "gym:challenge"
-        }
+        ]
       }
     ]
   }

@@ -1,19 +1,47 @@
 [
   {
-    "name": "Accept Duel",
+    "name": "Accept Duel requires player profile",
     "steps": [
       {
+        "send": { "callback": "pvp:accept" },
         "expect": [
           {
             "method": "sendMessage",
-            "payload": {
-              "text": "Respond to pending challenge invitation"
-            }
+            "payload": { "text": "You need a trainer profile first! Tap /start." }
           }
-        ],
-        "send": {
-          "callback": "pvp:accept"
-        }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Accept Duel shows no pending challenges",
+    "steps": [
+      {
+        "send": { "text": "/start" },
+        "expect": [
+          { "method": "sendMessage" }
+        ]
+      },
+      {
+        "send": { "callback": "starter:squirtle" },
+        "expect": [
+          { "method": "editMessageText" }
+        ]
+      },
+      {
+        "send": { "text": "Defender" },
+        "expect": [
+          { "method": "sendMessage" }
+        ]
+      },
+      {
+        "send": { "callback": "pvp:accept" },
+        "expect": [
+          {
+            "method": "editMessageText",
+            "payload": { "text": "No pending challenges for you right now!" }
+          }
+        ]
       }
     ]
   }

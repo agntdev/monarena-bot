@@ -1,19 +1,15 @@
 [
   {
-    "name": "Manage Team",
+    "name": "Manage Team requires trainer profile",
     "steps": [
       {
+        "send": { "callback": "team:manage" },
         "expect": [
           {
-            "method": "sendMessage",
-            "payload": {
-              "text": "Edit party composition, moves, and items"
-            }
+            "method": "editMessageText",
+            "payload": { "text": "You need a trainer profile first! Tap /start." }
           }
-        ],
-        "send": {
-          "callback": "team:manage"
-        }
+        ]
       }
     ]
   }

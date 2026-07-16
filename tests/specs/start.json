@@ -1,13 +1,68 @@
 [
   {
-    "name": "/start replies with the welcome + main menu",
+    "name": "/start offers starter selection for new users",
     "steps": [
       {
         "send": { "text": "/start" },
         "expect": [
           {
             "method": "sendMessage",
-            "payload": { "text": "👋 Welcome! Tap a button below to get started." }
+            "payload": { "text": "🎒 Hey there, Trainer!\n\nPick your starter Pokémon — this one will begin your journey!" }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "selecting a starter prompts for trainer name",
+    "steps": [
+      {
+        "send": { "text": "/start" },
+        "expect": [
+          {
+            "method": "sendMessage",
+            "payload": { "text": "🎒 Hey there, Trainer!\n\nPick your starter Pokémon — this one will begin your journey!" }
+          }
+        ]
+      },
+      {
+        "send": { "callback": "starter:charmander" },
+        "expect": [
+          {
+            "method": "editMessageText",
+            "payload": { "text": "Great choice — Charmander the Fire type!\n\nNow, what's your trainer name? (2-20 characters)" }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "completing onboarding with valid name grants starter",
+    "steps": [
+      {
+        "send": { "text": "/start" },
+        "expect": [
+          {
+            "method": "sendMessage",
+            "payload": { "text": "🎒 Hey there, Trainer!\n\nPick your starter Pokémon — this one will begin your journey!" }
+          }
+        ]
+      },
+      {
+        "send": { "callback": "starter:squirtle" },
+        "expect": [
+          {
+            "method": "editMessageText",
+            "payload": { "text": "Great choice — Squirtle the Water type!\n\nNow, what's your trainer name? (2-20 characters)" }
+          }
+        ]
+      },
+      {
+        "send": { "text": "Ash" },
+        "expect": [
+          {
+            "method": "sendMessage",
+            "payload": { "text": "🎉 Welcome, Ash! You received Squirtle as your starter!\n\nHere's what you got:\n• 3 Potions\n• 5 Poké Balls\n\nTap a button below to start your adventure!" }
           }
         ]
       }

@@ -1,19 +1,47 @@
 [
   {
-    "name": "Issue Duel",
+    "name": "Issue Duel requires player profile",
     "steps": [
       {
+        "send": { "callback": "pvp:challenge" },
         "expect": [
           {
             "method": "sendMessage",
-            "payload": {
-              "text": "Send asynchronous challenge to another player"
-            }
+            "payload": { "text": "You need a trainer profile first! Tap /start." }
           }
-        ],
-        "send": {
-          "callback": "pvp:challenge"
-        }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Issue Duel shows prompt with trainer ID",
+    "steps": [
+      {
+        "send": { "text": "/start" },
+        "expect": [
+          { "method": "sendMessage" }
+        ]
+      },
+      {
+        "send": { "callback": "starter:charmander" },
+        "expect": [
+          { "method": "editMessageText" }
+        ]
+      },
+      {
+        "send": { "text": "Challenger" },
+        "expect": [
+          { "method": "sendMessage" }
+        ]
+      },
+      {
+        "send": { "callback": "pvp:challenge" },
+        "expect": [
+          {
+            "method": "editMessageText",
+            "payload": { "text": "🎯 Send a duel challenge!\n\nAnother player needs to have started the bot first. Share your invite link so they can join:\n\nYour trainer ID: <code>1</code>\n\nTell your opponent to tap /start, then come back and enter their trainer ID." }
+          }
+        ]
       }
     ]
   }
